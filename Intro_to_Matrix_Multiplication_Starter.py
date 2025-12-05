@@ -105,4 +105,5 @@ def matrix_transpose(A):
     M.append(new_row)
   return M
 
-  
+print("Matrix M dimensions:", matrix_dimensions(M))
+print(can_multiply_matrices(M,N))
