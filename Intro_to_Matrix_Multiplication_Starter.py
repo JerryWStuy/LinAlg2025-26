@@ -42,8 +42,8 @@ print("\n")
 
 # Returns the dimensions of matrix A as a tuple (number of rows, number of columns)
 def matrix_dimensions(A):
-  num_rows = 0
-  num_cols = 0
+  num_rows = len(A)
+  num_cols = len(A[0])
   return((num_rows,num_cols))
 
 
@@ -52,7 +52,7 @@ def matrix_dimensions(A):
 
 # Returns True or False
 def can_multiply_matrices(A,B):
-  if (0==0):
+  if (len(A[0])==len(B)):
     return True
   else:
     return False
@@ -63,9 +63,12 @@ def can_multiply_matrices(A,B):
 # Returns the entry in row i, column j of the matrix product A*B
 
 def matrix_product_entry(A,B,i,j):
+  if not can_multiply_matrices(A,B):
+    print("These matrices cannot be multiplied.")
+    return None
+  else:
+    return sum(A[i][k] * B[k][j] for k in range(len(B)))
 
-  # Should probably check first to see if the matrices can be multiplied!
-  return 0
 
 
 # Challenge 4
@@ -76,19 +79,30 @@ def matrix_product_entry(A,B,i,j):
 def matrix_product(A,B):
 
   # Should probably check first to see if the matrices can be multiplied!
-
+  if not can_multiply_matrices(A,B):
+    print("These matrices cannot be multiplied.")
+    return None
   # Initialize a new empty list for your row lists 
-  P = []
+  P = [len(A)]
+  for i in range(len(A)):
+    P[i] = [0]*len(B[0])
   # Use matrix_product_entry!
-
+  for i in range(len(A)):
+    for j in range(len(B[0])):
+      P[i][j] = matrix_product_entry(A,B,i,j)
   return P
 
 # Challenge 5
 # Write a function that transposes a matrix
   
 def matrix_transpose(A):
-  
+  num_rows, num_cols = matrix_dimensions(A)
   M = []
+  for j in range(num_cols):
+    new_row = []
+    for i in range(num_rows):
+      new_row.append(A[i][j])
+    M.append(new_row)
   return M
 
   
